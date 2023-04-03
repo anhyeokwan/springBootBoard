@@ -28,8 +28,18 @@ public class MemberServiceImpl implements MemberService{
         log.info("멤버서비스임플 비밀번호 : " + memberDTO.getMemberPw());
 
 
-        return null;
+        Member mDto = memberRepository.login(memberDTO);
+
+        MemberDTO memberDTO1 = modelMapper.map(mDto, MemberDTO.class);
+
+        if (memberDTO1 == null) {
+            return null;
+        }else {
+            return memberDTO1;
+        }
+
     }
+
 }
 
 
