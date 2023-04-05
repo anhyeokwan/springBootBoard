@@ -17,10 +17,72 @@
       </div>
 
       <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">번호</th>
+              <th scope="col">제목</th>
+              <th scope="col">작성자</th>
+              <th scope="col">작성일자</th>
+            </tr>
+          </thead>
 
+          <tbody th:with="link = ${pageRequestDTO.getLink()}">
+            <tr th:each="dto:${dtoList.dtoList}">
+              <th>[[${dto.boardNo}]]</th>
+            </tr>
+
+            <td>[[${dto.title}]]</td>
+            <td>[[${dto.writer}]]</td>
+            <td>
+              [[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]
+            </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="float-end">
+          <ul class="pagination flex-wrap">
+            <li class="page-item" th:if="${dtoList.prev}">
+              <a class="page-link" th:data-num="${dtoList.start - 1}">Previous</a>
+            </li>
+
+            <th:block th:each="i:${#numbers.sequence(dtoList.start, dtoList.end)}">
+              <li th:class="${dtoList.page == i} ? 'page-item active' : 'page-item'">
+                <a class="page-link" th:data-num="${i}"}>[[${i}]]</a>
+              </li>
+            </th:block>
+
+            <li class="page-item" th:if="${dtoList.next}">
+              <a class="page-link" th:data-num="${dtoList.end + 1}">Next</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<script layout:fragment="script" th:inline="javascript">
+  // 페이징 번호 클릭 스크립트
+  document.querySelector(".pagenation").addEventListener("click", function (e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    const target = e.target;
+
+    if (target.tagName !== 'A') {
+      return;
+    }
+
+    const num = target.getAttribute("data-num");
+    const formObj = document.querySelector("form");
+
+    formObj.innerHTML += `<input type="hidden" name="page" value="${num}">`;
+
+    formObj.submit();
+
+  }, false)
+</script>
 
 </html>
