@@ -26,7 +26,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
         log.info("보드서치임플 : " + Arrays.toString(type) + ", " + keyword);
 
-        if ((type.length > 0 && type != null) && !keyword.equals("")) {
+        if((type != null && type.length > 0) && !keyword.equals("")) { // null 먼저?
             BooleanBuilder booleanBuilder = new BooleanBuilder();
 
             for (String types : type) {
@@ -46,9 +46,9 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
             }
 
             query.where(booleanBuilder);
-        }else {
-            query.where(board.boardNo.gt(0L));
         }
+
+        query.where(board.boardNo.gt(0L));
 
         this.getQuerydsl().applyPagination(pageable, query);
 

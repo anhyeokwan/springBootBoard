@@ -27,7 +27,7 @@ public class PageRequestDTO {
 
     private String keyword; // 검색어
 
-    public String[] getType(){ // 검색 타입 구분
+    public String[] getTypes(){ // 검색 타입 구분
         if (type == null || type.isEmpty()) {
             return null;
         }

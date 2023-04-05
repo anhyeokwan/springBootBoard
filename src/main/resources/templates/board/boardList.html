@@ -30,13 +30,13 @@
           <tbody th:with="link = ${pageRequestDTO.getLink()}">
             <tr th:each="dto:${dtoList.dtoList}">
               <th>[[${dto.boardNo}]]</th>
-            </tr>
 
-            <td>[[${dto.title}]]</td>
-            <td>[[${dto.writer}]]</td>
-            <td>
-              [[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]
-            </td>
+
+              <td>[[${dto.title}]]</td>
+              <td>[[${dto.writer}]]</td>
+              <td>
+                [[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]
+              </td>
             </tr>
           </tbody>
         </table>

@@ -27,7 +27,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO) {
-        String[] type = pageRequestDTO.getType();
+        String[] type = pageRequestDTO.getTypes();
         String keyword = pageRequestDTO.getKeyword();
         Pageable pageable = pageRequestDTO.getPageable("boardNo"); // 게시판 번호를 기준으로 내림차순
 
